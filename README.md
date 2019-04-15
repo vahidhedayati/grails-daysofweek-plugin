@@ -78,7 +78,7 @@ Ireland	40	Monday–Friday
 ```
 
 
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-daysofweek-plugin/blob/master/docs/sample.png)
+![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-daysofweek-plugin/master/docs/sample.png)
 
 http://stackoverflow.com/questions/313417/whats-the-best-way-to-store-the-days-of-the-week-an-event-takes-place-on-in-a-r
 
