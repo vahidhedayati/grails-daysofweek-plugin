@@ -23,6 +23,9 @@ Dependency Grails 3 (build.gradle):
 Documentation
 ---
 
+####[Class usages](https://vahidhedayati.github.io/grails-daysofweek-plugin/gapi/index.html)
+
+
 Typical gsp uage :
 
 You will need boostrap for _displayWeek.gsp the template inside this plugin to work, if you wish not to use
@@ -75,7 +78,7 @@ Ireland	40	Monday–Friday
 ```
 
 
-![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-daysofwqeek-plugin/master/docs/sample.png)
+![sample image](https://raw.githubusercontent.com/vahidhedayati/grails-daysofweek-plugin/blob/master/docs/sample.png)
 
 http://stackoverflow.com/questions/313417/whats-the-best-way-to-store-the-days-of-the-week-an-event-takes-place-on-in-a-r
 
