@@ -38,7 +38,7 @@ To get a final value which this plugin converts to / from you need to run:
 
 This  return a byte value of dow which contains which week days the end user has selected. When this is stored and reloaded in the context of above bean it will show the days as per selection.
 
-#### [Example controller/views: How to use daysofweek](https://github.com/vahidhedayati/grails-daysofweek-plugin/example.md)
+#### [Example controller/views: How to use daysofweek](https://github.com/vahidhedayati/grails-daysofweek-plugin/blob/master/example.md)
 
 
 #### Points of reference
