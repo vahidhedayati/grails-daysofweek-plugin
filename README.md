@@ -41,6 +41,9 @@ This  return a byte value of dow which contains which week days the end user has
 #### [Example controller/views: How to use daysofweek](https://github.com/vahidhedayati/grails-daysofweek-plugin/blob/master/example.md)
 
 
-#### Points of reference
+#### [Youtube video demonstrating plugin](https://www.youtube.com/watch?v=Jq2fXYep3QU)
+
+
+### Points of reference
 
 [Info behind weekdays byte value stackoverflow link](http://stackoverflow.com/questions/313417/whats-the-best-way-to-store-the-days-of-the-week-an-event-takes-place-on-in-a-r)
