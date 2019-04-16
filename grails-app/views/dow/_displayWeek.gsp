@@ -19,11 +19,11 @@
 <div class="weekDayContainer">
 	<div class="btn-group btn-xs" id="weekdaysElements" data-toggle="buttons-checkbox">
 		<g:each var="day" status="i" in="${grails.utils.DaysOfWeek.daysByLocale(currenLocale)}">
-   			<label class="daysOfWeek btn btn-xs btn-${day.isWeekend?'warning':'danger'} 
+   			<label class="daysOfWeek btn btn-xs btn-${day.isWeekend?'warning':'default'} 
    					${instance.daysOfWeekList?.contains(day.toString()) ? 'active' : ''}">
        			<g:checkBox 
        				data-text="${g.message(code:'dow.'+day)?:''}" class="hidden"
-                   	name="${instance.fieldName ? instance.fieldName :'daysOfWeek'  }"  
+                   	name="${instance?.fieldName?:'daysOfWeek'}"  
                    	value="${day}"  
                    	checked="${instance.daysOfWeekList?.contains(day.toString())}"
                    />

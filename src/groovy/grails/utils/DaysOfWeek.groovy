@@ -54,58 +54,75 @@ public enum DaysOfWeek {
 	 * ?lang=en	
 	 * @return
 	 */
-	DaysOfWeek[] getOrderedDaysOfWeek() {
+	public static DaysOfWeek[] getOrderedDaysOfWeek() {
 		DaysOfWeek[] array = values();
 		DayComparator dayComparator = new DayComparator()
-		dayComparator.currentDay=this
 		Arrays.sort(array, dayComparator);
 		return array;
 	}
-	DaysOfWeek[] orderedDaysOfWeek(Locale locale) {
+	public static DaysOfWeek[] orderedDaysOfWeek(Locale locale) {
 		DaysOfWeek[] array = values();
 		DayComparator dayComparator = new DayComparator()
-		dayComparator.currentDay=this
 		dayComparator.locale=locale
 		Arrays.sort(array, dayComparator);
 		return array;
 	}
 	
-	public static DaysOfWeek getFirstDayOfWeek(Locale locale) {
-		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
-		return DaysOfWeek.byDow(c.getFirstDayOfWeek())
-	}
 	
-	public static int getWeekEndStart(Locale locale) {
-		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
-		return c.getWeekData().weekendOnset
-	}
 	/**
 	 * 
 	 * Comparator to return week days as per locale of end user
-	 * @author Vahid Hedayati
+	 * It does a few things :
+	 * 
+	 * 1.  modifies current week days dow to be either 
+	 * + MAX value of DOW field in this Enum so +7 or it will retain the DOW
+	 * as per ENUM - during compareTo on very last line all entries fall in correct order of 
+	 * end user locale.
+	 * 
+	 * 2. Attempts to override isWeekend Enum value set in current Enum to match the end locale
+	 * 
+	 * The final output is the DaysOfWeek[] orderedDaysOfWeek above here.
+	 * 
+	 * @author Vahid Hedayati April 2019
 	 *
 	 */
-	class DayComparator implements Comparator<DaysOfWeek> {
-		DaysOfWeek currentDay=DaysOfWeek.SUN
+	public static class DayComparator implements Comparator<DaysOfWeek> {
 		Locale locale = Locale.UK
-		int weekendStart = DaysOfWeek.getWeekEndStart(locale)
-		int weekendEnd = DaysOfWeek.getWeekEndEnd(locale)
+		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
+		int weekendStart = c.getWeekData().weekendOnset
+		int weekendEnd = c.getWeekData().weekendCease
+		DaysOfWeek currentDay = DaysOfWeek.byDow(c.getFirstDayOfWeek())
+		//get it once
+		int max =maximum
+		int getMaximum() {
+			int m = Integer.MIN_VALUE
+			for (DaysOfWeek c in DaysOfWeek.values()) {
+				m = Math.max(c.getDow(), m)
+			}
+			return m
+		}
+		
 		@Override
 		public int compare(final DaysOfWeek o1, final DaysOfWeek o2) {
-			//LHS/RHS Bumped by 100 so 1 = 101 = SUN 2 = 102 = MON
-			int lhDow=o1.getDow()+100
-			int rhDow=o2.getDow()+100
+			//LHS/RHS Bumped by 7 so 1 = 8 = SUN 2 = 9 = MON
+			int lhDow=o1.getDow()+max
+			int rhDow=o2.getDow()+max
+			
 			//hack to reduce RHS by 100 if greater than current day
 			if (o2.getDow()>=currentDay.getDow()) {
-				rhDow-=100
+				rhDow-=max
 			}
-			//hack to reduce LHS by 100 if greater than current day
-			//If met MON = 2 from 102 and so on
+			//hack to reduce LHS by 7 if greater than current day
+			//If met MON = 2 from 9 and so on
 			if (o1.getDow()>=currentDay.getDow()) {
-				lhDow-=100
+				lhDow-=max
 			}
 			
-			//TODO - this appears to be working correctly may need to be revisited 
+			/*TODO - this appears to not be accurate Perhaps relates to:
+			    new IslamicCalendar(),
+                new HebrewCalendar(),
+                new GregorianCalendar()
+			 */
 			//o1.setIsWeekend(o2.getDow()>=weekendStart && o1.getDow()<=weekendEnd)
 			o2.setIsWeekend(o1.getDow()>=weekendStart && o2.getDow()<=weekendEnd)
 			
@@ -115,7 +132,7 @@ public enum DaysOfWeek {
 	}
 	
 
-    public static byte fromListToBit(List<String> dow) {
+    public static byte fromListToBit(List<String> dow) {""
         byte sum=(byte)0
         dow?.each { String d->
             sum+=DaysOfWeek.byKey(d).value
@@ -124,22 +141,14 @@ public enum DaysOfWeek {
     }
 
 
-	
-	public static int getWeekEndEnd(Locale locale) {
-		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
-		return c.getWeekData().weekendCease
-	}
-	
+
     public static List<String> daysByLocale (Locale locale) {
         /**
          * JDK provides this method to get first day of week
-         * but for example Iran states DOW = 1 . Incorrect should be Saturday
-         * 
-         * Calendar.getInstance(locale1).getFirstDayOfWeek()
-         * 
-         * using icu4j libraries instead
+         * Calendar.getInstance(locale1).getFirstDayOfWeek() 
+         * which in some cases is not true presentation using ICU4J
          */
-		return getFirstDayOfWeek(locale).orderedDaysOfWeek(locale)
+		return orderedDaysOfWeek(locale)
     }
 
     public static List<String> fromBitValueToList (final int origBitMask) {
@@ -174,7 +183,24 @@ public enum DaysOfWeek {
     static DaysOfWeek byKey(String val) {
         values().find { it.toString() == val }
     }
-
+	
+	public static DaysOfWeek getFirstDayOfWeek(Locale locale) {
+		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
+		return DaysOfWeek.byDow(c.getFirstDayOfWeek())
+	}
+	
+	
+	public static int getWeekEndStart(Locale locale) {
+		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
+		// return c.getWeekDataForRegion(locale.country).weekendOnset
+		return c.getWeekData().weekendOnset
+	}
+	
+	public static int getWeekEndEnd(Locale locale) {
+		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
+		// return c.getWeekDataForRegion(locale.country).weekendCease
+		return c.getWeekData().weekendCease
+	}
 	
 	
 	/**

@@ -15,16 +15,21 @@ class DaysOfWeekBean  {
 	String context='default'
 	
 	String fieldName='daysOfweek'
+	boolean activateAll=false
 		
 	def formatBean() {
-		if (!dow) {
-			//if (!daysOfweek) {
-				dow=DaysOfWeek.allWeek()
-			//} else {
-			//	dow=DaysOfWeek.fromListToBit(daysOfweek)
-			//}
+		if (activateAll) {
+			if (!dow) {
+				//if (!daysOfweek) {
+					dow=DaysOfWeek.allWeek()
+				//} else {
+				//	dow=DaysOfWeek.fromListToBit(daysOfweek)
+				//}
+			}
 		}
-		daysOfWeekList=DaysOfWeek.fromBitValueToList(dow as int)
+		if (dow) {
+			daysOfWeekList=DaysOfWeek.fromBitValueToList(dow as int)
+		}
 	}
 
 	
