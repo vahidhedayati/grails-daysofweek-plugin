@@ -1,6 +1,8 @@
 package grails.utils
 
-import org.codehaus.groovy.grails.web.binding.DataBindingUtils
+import grails.utils.DaysOfWeekBean
+import grails.web.databinding.DataBindingUtils
+
 
 /**
  *  <dow:week />

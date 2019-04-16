@@ -17,8 +17,8 @@ import grails.validation.Validateable
  * @author Vahid Hedayati
  *
  */
-@Validateable
-class DaysOfWeekBean  {
+
+class DaysOfWeekBean implements Validateable {
 	// the byte value that represents bitwise value of week days selected
 	Byte dow
 	
