@@ -1,8 +1,24 @@
 package  grails.utils
 
-import com.ibm.icu.util.ULocale
 import com.ibm.icu.util.Calendar
+import com.ibm.icu.util.ULocale
 
+/**
+ *  DaysOfWeek is an ENUM which declares 
+ *  physical week days i.e. SUN MON,
+ *  The ENUM values contains :
+ *  a bitwise operation known locally as variable value  -- is fixed
+ *  the week day representation known locally as dow   -- is fixed 
+ *  a boolean true/false  known locally as isWeekend  --  is modifiable.
+ *   -> configures a default week or weekend day is overridden in DayComparator
+ *   but doesn't appear to work as per expectations currently
+ *   
+ *  This class takes java locale and converts to com.ibm.icu.util.ULocale
+ *  and returns a final result
+ * 
+ * @author Vahid Hedayati April 2019
+ *
+ */
 public enum DaysOfWeek {
 
     SUN((byte)1,1,true),
@@ -12,13 +28,17 @@ public enum DaysOfWeek {
     THU((byte)16,5,false),
     FRI((byte)32,6,false),
     SAT((byte)64,7,true)
-	
-	//http://stackoverflow.com/questions/313417/whats-the-best-way-to-store-the-days-of-the-week-an-event-takes-place-on-in-a-r
-	//sun=1, mon=2, tue=4, wed=8, thu=16, fri=32, sat=64.
-	//Now, say the course is held on mon, wed and fri. the value to save in database would be 42 (2+8+32). Then you can select courses on wednesday like this:
-	//select * from courses where (days & 8) > 0
-	//if you want courses on thu and fri you would write:
-	//select * from courses where (days & 48) > 0
+
+	/*
+	 *  http://stackoverflow.com/questions/313417/whats-the-best-way-to-store-the-days-of-the-week-an-event-takes-place-on-in-a-r
+	 *  sun=1, mon=2, tue=4, wed=8, thu=16, fri=32, sat=64.
+	 *
+	 *  Now, say the course is held on mon, wed and fri. the value to save in database would be 42 (2+8+32). 
+	 *  Then you can select courses on wednesday like this:
+	 *  select * from courses where (days & 8) > 0
+	 *  if you want courses on thu and fri you would write:
+	 *  select * from courses where (days & 48) > 0
+	 */
     byte value
 
 	//Actual day of week SUN = 1 MON = 2 ... SAT = 7	
@@ -60,6 +80,7 @@ public enum DaysOfWeek {
 		Arrays.sort(array, dayComparator);
 		return array;
 	}
+	
 	public static DaysOfWeek[] orderedDaysOfWeek(Locale locale) {
 		DaysOfWeek[] array = values();
 		DayComparator dayComparator = new DayComparator()
@@ -75,11 +96,11 @@ public enum DaysOfWeek {
 	 * It does a few things :
 	 * 
 	 * 1.  modifies current week days dow to be either 
-	 * + MAX value of DOW field in this Enum so +7 or it will retain the DOW
+	 * + MAX value of DOW field in this ENUM so +7 or it will retain the DOW
 	 * as per ENUM - during compareTo on very last line all entries fall in correct order of 
 	 * end user locale.
 	 * 
-	 * 2. Attempts to override isWeekend Enum value set in current Enum to match the end locale
+	 * 2. Attempts to override isWeekend ENUM value set in current ENUM to match the end locale
 	 * 
 	 * The final output is the DaysOfWeek[] orderedDaysOfWeek above here.
 	 * 
@@ -89,6 +110,7 @@ public enum DaysOfWeek {
 	public static class DayComparator implements Comparator<DaysOfWeek> {
 		Locale locale = Locale.UK
 		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
+		
 		int weekendStart = c.getWeekData().weekendOnset
 		int weekendEnd = c.getWeekData().weekendCease
 		DaysOfWeek currentDay = DaysOfWeek.byDow(c.getFirstDayOfWeek())
@@ -132,22 +154,32 @@ public enum DaysOfWeek {
 	}
 	
 
-    public static byte fromListToBit(List<String> dow) {""
+	/**
+	 * Byte bit1 = DaysOfWeek.fromListToBit(['MON','TUE'])
+	 * Byte bit2 = DaysOfWeek.fromListToBit(['MON','SAT','SUN'])
+	 * @param daysOfWeek a list containing string names of days of week 
+	 * @return a byte sum for those weekdays = what user sees as dow byte value.
+	 */
+    public static byte fromListToBit(List<String> daysOfWeek) {
         byte sum=(byte)0
-        dow?.each { String d->
+        daysOfWeek?.each { String d->
             sum+=DaysOfWeek.byKey(d).value
         }
         return sum
     }
 
-
-
+	
+	/**
+	 * List<String> myDays = DaysOfWeek.daysOfWeek(Locale.UK)
+	 * 
+	 * myDays = ['Mon','TUE',...'SUN'] //in order of local first week day
+	 * 
+	 * JDK provides this method to get first day of week
+	 * Calendar.getInstance(locale1).getFirstDayOfWeek()
+	 * which in some cases is not true presentation using ICU4J
+	 * 
+	 */
     public static List<String> daysByLocale (Locale locale) {
-        /**
-         * JDK provides this method to get first day of week
-         * Calendar.getInstance(locale1).getFirstDayOfWeek() 
-         * which in some cases is not true presentation using ICU4J
-         */
 		return orderedDaysOfWeek(locale)
     }
 
@@ -184,19 +216,51 @@ public enum DaysOfWeek {
         values().find { it.toString() == val }
     }
 	
-	public static DaysOfWeek getFirstDayOfWeek(Locale locale) {
+	/**
+	 * DaysOfWeek.getAvailableLocales(java.util.Locale)
+	 * or 
+	 * DaysOfWeek.availableLocales
+	 * @param locale optional
+	 * @return  a list of java.util.Locale calendars that can be used with this class  
+	 */
+	public static List<java.util.Locale> getAvailableLocales(Locale locale=Locale.UK) {
+		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
+		return c.getAvailableLocales()
+	}
+	
+	/**
+	 * DaysOfWeek.getFirstDayOfWeek(java.util.Locale)
+	 * or 
+	 * DaysOfWeek.firstDayOfWeek  //UK Bound
+	 * @param locale optional
+	 * @return DaysofWeek ENUM object equalling first week day of given java locale
+	 */
+	public static DaysOfWeek getFirstDayOfWeek(Locale locale=Locale.UK) {
 		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
 		return DaysOfWeek.byDow(c.getFirstDayOfWeek())
 	}
 	
-	
-	public static int getWeekEndStart(Locale locale) {
+	/**
+	 * DaysOfWeek.getWeekEndStart(java.util.Locale)
+	 * or
+	 * DaysOfWeek.weekEndStart  //UK Bound
+	 * @param locale optional
+	 * @return integer of which week day is starting day of weekend for that locale - questionable at moment for me
+	 */
+	public static int getWeekEndStart(Locale locale=Locale.UK) {
 		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
 		// return c.getWeekDataForRegion(locale.country).weekendOnset
 		return c.getWeekData().weekendOnset
 	}
 	
-	public static int getWeekEndEnd(Locale locale) {
+	/**
+	 * DaysOfWeek.getWeekEndEnd(java.util.Locale)
+	 * or
+	 * DaysOfWeek.weekEndEnd  //UK Bound
+	 * @param locale optional
+	 * @return integer of which week day is ending day  of weekend for that locale - questionable at moment for me
+	 */
+	public static int getWeekEndEnd(Locale locale=Locale.UK) {
 		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
 		// return c.getWeekDataForRegion(locale.country).weekendCease
 		return c.getWeekData().weekendCease
@@ -214,12 +278,19 @@ public enum DaysOfWeek {
 
 	private static final DowComparator dowComparator = new DowComparator()
 	
+	
 	public static DaysOfWeek[] getDaysOfWeek() {
 		DaysOfWeek[] array = values();
 		Arrays.sort(array, dowComparator);
 		return array;
 	}
 	
+	/**
+	 * Basic minimal comparator comparing lowest to highest and returning a list of 
+	 * DaysOfWeek array above based on dow setting within ENUM
+	 * @author Vahid Hedayati
+	 *
+	 */
 	private static final class DowComparator implements Comparator<DaysOfWeek> {
 		@Override
 		public int compare(final DaysOfWeek o1, final DaysOfWeek o2) {
