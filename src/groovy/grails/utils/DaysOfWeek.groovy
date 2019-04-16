@@ -11,7 +11,6 @@ import com.ibm.icu.util.ULocale
  *  the week day representation known locally as dow   -- is fixed 
  *  a boolean true/false  known locally as isWeekend  --  is modifiable.
  *   -> configures a default week or weekend day is overridden in DayComparator
- *   but doesn't appear to work as per expectations currently
  *   
  *  This class takes java locale and converts to com.ibm.icu.util.ULocale
  *  and returns a final result
@@ -83,8 +82,7 @@ public enum DaysOfWeek {
 	
 	public static DaysOfWeek[] orderedDaysOfWeek(Locale locale) {
 		DaysOfWeek[] array = values();
-		DayComparator dayComparator = new DayComparator()
-		dayComparator.locale=locale
+		DayComparator dayComparator = new DayComparator(locale)
 		Arrays.sort(array, dayComparator);
 		return array;
 	}
@@ -124,12 +122,20 @@ public enum DaysOfWeek {
 			return m
 		}
 		
+		DayComparator() {
+			
+		}
+		
+		DayComparator(Locale locale) {
+			this.locale=locale
+		}
+		
 		@Override
 		public int compare(final DaysOfWeek o1, final DaysOfWeek o2) {
 			//LHS/RHS Bumped by 7 so 1 = 8 = SUN 2 = 9 = MON
 			int lhDow=o1.getDow()+max
 			int rhDow=o2.getDow()+max
-			
+
 			//hack to reduce RHS by 100 if greater than current day
 			if (o2.getDow()>=currentDay.getDow()) {
 				rhDow-=max
@@ -140,13 +146,9 @@ public enum DaysOfWeek {
 				lhDow-=max
 			}
 			
-			/*TODO - this appears to not be accurate Perhaps relates to:
-			    new IslamicCalendar(),
-                new HebrewCalendar(),
-                new GregorianCalendar()
-			 */
-			//o1.setIsWeekend(o2.getDow()>=weekendStart && o1.getDow()<=weekendEnd)
-			o2.setIsWeekend(o1.getDow()>=weekendStart && o2.getDow()<=weekendEnd)
+			//set weekends to true locale weekend days as per country definition
+			o1.setIsWeekend(o1.getDow()==weekendStart || o1.getDow()==weekendEnd)
+			o2.setIsWeekend(o2.getDow()==weekendStart || o2.getDow()==weekendEnd)
 			
 			//Final comparison should be things in relevant oder either bumped or normal number 
 			return lhDow.compareTo(rhDow)
@@ -180,13 +182,13 @@ public enum DaysOfWeek {
 	 * 
 	 */
     public static List<String> daysByLocale (Locale locale) {
-		return orderedDaysOfWeek(locale)
+		return this.orderedDaysOfWeek(locale)
     }
 
-    public static List<String> fromBitValueToList (final int origBitMask) {
+    public static List<String> fromBitValueToList (final int origBitMask, Locale locale = Locale.UK) {
         final List<String> ret_val = []
         int bitMask = origBitMask
-        for ( final DaysOfWeek val : DaysOfWeek.values( ) ) {
+        for ( final DaysOfWeek val : this.orderedDaysOfWeek(locale) ) {
             if ( ( val.value & bitMask ) == val.value ) {
                 bitMask &= ~val.value
                 ret_val.add(val.toString())

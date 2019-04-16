@@ -3,40 +3,66 @@ package grails.utils
 import grails.validation.Validateable
 
 
+/**
+ * 
+ * Validation bean to work with the displayWeek template
+ * 
+ * If you wish to reuse this functionality simply extend this in your own validation
+ * 
+ *  
+ * class MyValidation extends  DaysOfWeekBean {
+ *   //do other stuff and you get all of this too
+ * }
+ * 
+ * @author Vahid Hedayati
+ *
+ */
 @Validateable
 class DaysOfWeekBean  {
-    Byte dow
-    List<String> daysOfWeekList
-   //String[] daysOfweek= [] as String[] ///new ArrayList<String>(); //new String[0] 
+	// the byte value that represents bitwise value of week days selected
+	Byte dow
+	
+	//physical list of days bound to above byte
+	List<String> daysOfWeekList
+	
+	//This gets set as selectedDays to strip out all nulls sent via front end
+	List daysOfweek=[] // new ArrayList<String>() 
 
-	Locale locale
+	Locale locale=Locale.UK
 
 	//div container override per call
 	String context='default'
 	
+	//This defines the checkbox element collected
 	String fieldName='daysOfweek'
+	
+	boolean showLabel=false
+	
+	boolean showLocale=false
+	
+	//if set to true will auto select all days of the week
 	boolean activateAll=false
+	
+	boolean bindToBean=false
 		
 	def formatBean() {
-		if (activateAll) {
-			if (!dow) {
-				//if (!daysOfweek) {
-					dow=DaysOfWeek.allWeek()
-				//} else {
-				//	dow=DaysOfWeek.fromListToBit(daysOfweek)
-				//}
-			}
+		if (activateAll && !dow && !selectedDays ) {
+			dow=DaysOfWeek.allWeek()
+		}
+		if (!dow && selectedDays) {
+			dow=DaysOfWeek.fromListToBit(selectedDays)
 		}
 		if (dow) {
-			daysOfWeekList=DaysOfWeek.fromBitValueToList(dow as int)
+			daysOfWeekList=DaysOfWeek.fromBitValueToList(dow as int, locale)
 		}
 	}
 
-	
+	List getSelectedDays() {
+		return daysOfweek?.findAll{it}
+	}
     static constraints = {
 		locale(nullable:true)
-       // daysOfweek(nullable:true)
+        daysOfweek(nullable:true)
         dow(min:(byte)1,max:(byte)127)
     }
-
 }

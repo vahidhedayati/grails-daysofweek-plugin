@@ -29,6 +29,10 @@ class DayOfWeekTagLib {
 		out << g.render(contextPath: pluginContextPath, template:'/dow/bootstrap')
 	}
 	
+	def jqueryui={
+		out << g.render(contextPath: pluginContextPath, template:'/dow/jqueryui')
+	}
+	
 	def week = { attrs ->
 		DaysOfWeekBean bean = new DaysOfWeekBean()
 		DataBindingUtils.bindObjectToInstance(bean, attrs)
@@ -36,7 +40,11 @@ class DayOfWeekTagLib {
 		if (attrs.template) {
 			out << g.render(template:attrs.template, [instance:bean])
 		} else {
-			out << g.render(contextPath: pluginContextPath, template : attrs?.template?:"/dow/displayWeek", model: [instance:bean])
+			String template = "/dow/displayWeek"
+			if (attrs.jqueryui && Boolean.valueOf(attrs.jqueryui)) {
+				template = "/dow/displayJqueryWeek"
+			}
+			out << g.render(contextPath: pluginContextPath, template : attrs?.template?:template, model: [instance:bean])
 		}
 		
 	} 

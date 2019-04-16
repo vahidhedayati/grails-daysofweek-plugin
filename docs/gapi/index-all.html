@@ -120,6 +120,8 @@ if (location.href.indexOf('is-external=true') == -1) {
 <h2 class="title">B</h2>
 <dl>
 
+<dt><span class="strong"><a href="grails/utils/DaysOfWeekBean.html#bindToBean" title="Property in DaysOfWeekBean">bindToBean</a></span> - Property in <a href="grails/utils/DaysOfWeekBean.html">DaysOfWeekBean</a>
+</dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DayOfWeekTagLib.html#bootstrap" title="Property in DayOfWeekTagLib">bootstrap</a></span> - Property in <a href="grails/utils/DayOfWeekTagLib.html">DayOfWeekTagLib</a>
 </dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#byDow(int)" title="Method in DaysOfWeek">byDow(int)</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
@@ -159,22 +161,26 @@ if (location.href.indexOf('is-external=true') == -1) {
 <dt><span class="strong"><a href="grails/utils/DayOfWeekTagLib.html#DayOfWeekTagLib()" title="Constructor in DayOfWeekTagLib">DayOfWeekTagLib()</a></span> - Constructor in <a href="grails/utils/DayOfWeekTagLib.html">DayOfWeekTagLib</a>
 </dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#daysByLocale(java.util.Locale)" title="Method in DaysOfWeek">daysByLocale(Locale)</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
-</dt><dd> <div class="block"></div></dd>
+</dt><dd> <div class="block">List<String> myDays = DaysOfWeek.daysOfWeek(Locale.UK)</div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html" title="Enum in grails.utils">DaysOfWeek</a></span> - Enum in <a href="./grails/utils/package-summary.html">grails.utils</a>
-</dt><dd><div class="block"></div></dd>
+</dt><dd><div class="block">DaysOfWeek is an ENUM which declares 
+  physical week days i.e. </div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.DayComparator.html" title="Class in grails.utils.DaysOfWeek">DaysOfWeek.DayComparator</a></span> - Class in <a href="./grails/utils/package-summary.html">grails.utils</a>
 </dt><dd><div class="block">Comparator to return week days as per locale of end user
  It does a few things :</div></dd>
-<dt><span class="strong"><a href="grails/utils/DaysOfWeek.DayComparator.html#DaysOfWeek.DayComparator()" title="Constructor in DaysOfWeek.DayComparator">DaysOfWeek.DayComparator()</a></span> - Constructor in <a href="grails/utils/DaysOfWeek.DayComparator.html">DaysOfWeek.DayComparator</a>
+<dt><span class="strong"><a href="grails/utils/DaysOfWeek.DayComparator.html#DaysOfWeek.DayComparator(java.util.Locale)" title="Constructor in DaysOfWeek.DayComparator">DaysOfWeek.DayComparator(Locale)</a></span> - Constructor in <a href="grails/utils/DaysOfWeek.DayComparator.html">DaysOfWeek.DayComparator</a>
 </dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.DowComparator.html" title="Class in grails.utils.DaysOfWeek">DaysOfWeek.DowComparator</a></span> - Class in <a href="./grails/utils/package-summary.html">grails.utils</a>
-</dt><dd><div class="block"></div></dd>
+</dt><dd><div class="block">Basic minimal comparator comparing lowest to highest and returning a list of 
+ DaysOfWeek array above based on dow setting within ENUM</div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.DowComparator.html#DaysOfWeek.DowComparator()" title="Constructor in DaysOfWeek.DowComparator">DaysOfWeek.DowComparator()</a></span> - Constructor in <a href="grails/utils/DaysOfWeek.DowComparator.html">DaysOfWeek.DowComparator</a>
 </dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#DaysOfWeek(byte, int, boolean)" title="Constructor in DaysOfWeek">DaysOfWeek(byte, int, boolean)</a></span> - Constructor in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
 </dt><dd> <div class="block"></div></dd>
+<dt><span class="strong"><a href="grails/utils/DaysOfWeekBean.html#daysOfweek" title="Property in DaysOfWeekBean">daysOfweek</a></span> - Property in <a href="grails/utils/DaysOfWeekBean.html">DaysOfWeekBean</a>
+</dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeekBean.html" title="Class in grails.utils">DaysOfWeekBean</a></span> - Class in <a href="./grails/utils/package-summary.html">grails.utils</a>
-</dt><dd><div class="block"></div></dd>
+</dt><dd><div class="block">Validation bean to work with the displayWeek template</div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeekBean.html#DaysOfWeekBean()" title="Constructor in DaysOfWeekBean">DaysOfWeekBean()</a></span> - Constructor in <a href="grails/utils/DaysOfWeekBean.html">DaysOfWeekBean</a>
 </dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeekBean.html#daysOfWeekList" title="Property in DaysOfWeekBean">daysOfWeekList</a></span> - Property in <a href="grails/utils/DaysOfWeekBean.html">DaysOfWeekBean</a>
@@ -214,12 +220,11 @@ if (location.href.indexOf('is-external=true') == -1) {
 </dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#FRI" title="Enum Constant in DaysOfWeek">FRI</a></span> - Enum Constant in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
 </dt><dd> <div class="block"></div></dd>
-<dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#fromBitValueToList(int)" title="Method in DaysOfWeek">fromBitValueToList(int)</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
-</dt><dd> <div class="block">JDK provides this method to get first day of week
- Calendar.getInstance(locale1).getFirstDayOfWeek() 
- which in some cases is not true presentation using ICU4J</div></dd>
-<dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#fromListToBit(List<String>)" title="Method in DaysOfWeek">fromListToBit(List&lt;String&gt;)</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
+<dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#fromBitValueToList(int, java.util.Locale)" title="Method in DaysOfWeek">fromBitValueToList(int, Locale)</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
 </dt><dd> <div class="block"></div></dd>
+<dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#fromListToBit(List<String>)" title="Method in DaysOfWeek">fromListToBit(List&lt;String&gt;)</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
+</dt><dd> <div class="block">Byte bit1 = DaysOfWeek.fromListToBit(['MON','TUE'])
+ Byte bit2 = DaysOfWeek.fromListToBit(['MON','SAT','SUN'])</div></dd>
 </dl>
 
     
@@ -227,12 +232,18 @@ if (location.href.indexOf('is-external=true') == -1) {
 <h2 class="title">G</h2>
 <dl>
 
+<dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#getAvailableLocales(java.util.Locale)" title="Method in DaysOfWeek">getAvailableLocales(Locale)</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
+</dt><dd> <div class="block">DaysOfWeek.getAvailableLocales(java.util.Locale)
+ or 
+ DaysOfWeek.availableLocales</div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#getDaysOfWeek()" title="Method in DaysOfWeek">getDaysOfWeek()</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
 </dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#getDow()" title="Method in DaysOfWeek">getDow()</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
 </dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#getFirstDayOfWeek(java.util.Locale)" title="Method in DaysOfWeek">getFirstDayOfWeek(Locale)</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
-</dt><dd> <div class="block"></div></dd>
+</dt><dd> <div class="block">DaysOfWeek.getFirstDayOfWeek(java.util.Locale)
+ or 
+ DaysOfWeek.firstDayOfWeek  //UK Bound</div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#getIsWeekend()" title="Method in DaysOfWeek">getIsWeekend()</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
 </dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.DayComparator.html#getMaximum()" title="Method in DaysOfWeek.DayComparator">getMaximum()</a></span> - Method in <a href="grails/utils/DaysOfWeek.DayComparator.html">DaysOfWeek.DayComparator</a>
@@ -240,12 +251,18 @@ if (location.href.indexOf('is-external=true') == -1) {
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#getOrderedDaysOfWeek()" title="Method in DaysOfWeek">getOrderedDaysOfWeek()</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
 </dt><dd> <div class="block">Internal comparator designed to return days of the week in correct order based on user's locale / end country
  ?</div></dd>
+<dt><span class="strong"><a href="grails/utils/DaysOfWeekBean.html#getSelectedDays()" title="Method in DaysOfWeekBean">getSelectedDays()</a></span> - Method in <a href="grails/utils/DaysOfWeekBean.html">DaysOfWeekBean</a>
+</dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#getValue()" title="Method in DaysOfWeek">getValue()</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
 </dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#getWeekEndEnd(java.util.Locale)" title="Method in DaysOfWeek">getWeekEndEnd(Locale)</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
-</dt><dd> <div class="block"></div></dd>
+</dt><dd> <div class="block">DaysOfWeek.getWeekEndEnd(java.util.Locale)
+ or
+ DaysOfWeek.weekEndEnd  //UK Bound</div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#getWeekEndStart(java.util.Locale)" title="Method in DaysOfWeek">getWeekEndStart(Locale)</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
-</dt><dd> <div class="block"></div></dd>
+</dt><dd> <div class="block">DaysOfWeek.getWeekEndStart(java.util.Locale)
+ or
+ DaysOfWeek.weekEndStart  //UK Bound</div></dd>
 <dt><span class="strong"><a href="DefaultPackage/DaysofweekPluginGrailsPlugin.html#grailsVersion" title="Property in DaysofweekPluginGrailsPlugin">grailsVersion</a></span> - Property in <a href="DefaultPackage/DaysofweekPluginGrailsPlugin.html">DaysofweekPluginGrailsPlugin</a>
 </dt><dd> <div class="block"></div></dd>
 </dl>
@@ -273,6 +290,8 @@ if (location.href.indexOf('is-external=true') == -1) {
 <h2 class="title">J</h2>
 <dl>
 
+<dt><span class="strong"><a href="grails/utils/DayOfWeekTagLib.html#jqueryui" title="Property in DayOfWeekTagLib">jqueryui</a></span> - Property in <a href="grails/utils/DayOfWeekTagLib.html">DayOfWeekTagLib</a>
+</dt><dd> <div class="block"></div></dd>
 </dl>
 
     
@@ -355,6 +374,10 @@ if (location.href.indexOf('is-external=true') == -1) {
 <dt><span class="strong"><a href="DefaultPackage/DaysofweekPluginGrailsPlugin.html#scm" title="Property in DaysofweekPluginGrailsPlugin">scm</a></span> - Property in <a href="DefaultPackage/DaysofweekPluginGrailsPlugin.html">DaysofweekPluginGrailsPlugin</a>
 </dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#setIsWeekend(boolean)" title="Method in DaysOfWeek">setIsWeekend(boolean)</a></span> - Method in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
+</dt><dd> <div class="block"></div></dd>
+<dt><span class="strong"><a href="grails/utils/DaysOfWeekBean.html#showLabel" title="Property in DaysOfWeekBean">showLabel</a></span> - Property in <a href="grails/utils/DaysOfWeekBean.html">DaysOfWeekBean</a>
+</dt><dd> <div class="block"></div></dd>
+<dt><span class="strong"><a href="grails/utils/DaysOfWeekBean.html#showLocale" title="Property in DaysOfWeekBean">showLocale</a></span> - Property in <a href="grails/utils/DaysOfWeekBean.html">DaysOfWeekBean</a>
 </dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="grails/utils/DaysOfWeek.html#SUN" title="Enum Constant in DaysOfWeek">SUN</a></span> - Enum Constant in <a href="grails/utils/DaysOfWeek.html">DaysOfWeek</a>
 </dt><dd> <div class="block"></div></dd>
