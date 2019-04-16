@@ -21,8 +21,9 @@
 		<div class="weekDayContainer" >
 			<div id="weekdaysElements"> 
 				<g:each var="day" status="i" in="${grails.utils.DaysOfWeek.daysByLocale(currentLocale)}">
-		   			<label class="daysOfWeek ${day.isWeekend?'weekend':''} 
-		   					${instance.daysOfWeekList?.contains(day.toString()) ? 'active' : ''}">
+				<g:set var="containsItem" value="${instance.daysOfWeekList?.contains(day.toString())}"/>
+		   			<label class="daysOfWeek ${!containsItem && day.isWeekend?'weekend':''} 
+		   					${containsItem ? 'active' : ''}">
 		   					<g:if test="${instance?.bindToBean}">
 				       			<g:checkBox 
 				       				data-text="${g.message(code:'dow.'+day)?:''}"
