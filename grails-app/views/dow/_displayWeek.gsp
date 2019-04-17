@@ -1,13 +1,14 @@
 <style>
 #${instance.context} .weekDayContainer .btn-group .active { background-color : #5ADA5A; }
 </style>
+<g:set var="defaultLocale" value="${session?.'org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE'}"/>
 <g:set var="currentLocale" value="${instance?.locale?:
-	session?.'org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE'?:
+	defaultLocale?:
 	java.util.Locale.UK}"/>
 <div id="${instance.context}">
 	<g:if test="${instance?.showLabel}">
 		<label for="dow" class="fieldLabel">
-			<g:message code="weekDays.label" />
+			<g:message code="weekDays.label" locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}" />
 			<g:if test="${instance?.showLocale}">
 				${currentLocale}
 			</g:if>
@@ -34,13 +35,17 @@
 		                   	checked="${instance.daysOfWeekList?.contains(day.toString())}"
 		                   />
 	                   </g:else>
-	       			<g:message code="dow.${day}"/>
+	                   
+	       			<g:message code="dow.${day}" locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/>
 	   			</label>
 			</g:each>
 		</div>
-		<span class="btn btn-outline" id="toggleAll"><g:message code="all.label"/></span>
-		<span class="btn btn-outline" id="toggleNone"><g:message code="none.label"/></span>
-		<span class="btn btn-outline" id="toggleInvert"><g:message code="reverse.label"/></span>
+		<span class="btn btn-outline" id="toggleAll"><g:message code="all.label" 
+		locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/></span>
+		<span class="btn btn-outline" id="toggleNone"><g:message code="none.label" 
+		locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/></span>
+		<span class="btn btn-outline" id="toggleInvert"><g:message code="reverse.label" 
+		locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/></span>
 	</div>
 </div>
 <script>

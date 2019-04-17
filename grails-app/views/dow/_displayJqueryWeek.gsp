@@ -5,14 +5,15 @@
 #${instance.context} #weekdaysElements { display:inline;}
 #${instance.context} .weekDayContainer .weekend { background-color : #f0ad4e; }
 </style>
+<g:set var="defaultLocale" value="${session?.'org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE'}"/>
 <g:set var="currentLocale" value="${instance?.locale?:
-	session?.'org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE'?:
+	defaultLocale?:
 	java.util.Locale.UK}"/>
 <div id="${instance.context}">
 	<fieldset>
 		<g:if test="${instance?.showLabel}">
 			<label for="dow" class="fieldLabel">
-				<g:message code="weekDays.label" />
+				<g:message code="weekDays.label" locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/>
 				<g:if test="${instance?.showLocale}">
 					${currentLocale}
 				</g:if>
@@ -43,14 +44,17 @@
 			                   	checked="${instance.daysOfWeekList?.contains(day.toString())}"
 			                   />
 		                   </g:else>
-		       			<g:message code="dow.${day}"/>
+		       			<g:message code="dow.${day}" locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/>
 		   			</label>
 				</g:each>
 			</div>
 			<div class="sideButtons">
-			<a class="ui-state-default ui-corner-all" id="toggleAll"><g:message code="all.label"/></a>
-			<a class="ui-state-default ui-corner-all" id="toggleNone"><g:message code="none.label"/></a>
-			<a class="ui-state-default ui-corner-all" id="toggleInvert"><g:message code="reverse.label"/></a>
+			<a class="ui-state-default ui-corner-all" id="toggleAll"><g:message code="all.label" 
+			locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/></a>
+			<a class="ui-state-default ui-corner-all" id="toggleNone"><g:message code="none.label" 
+			locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/></a>
+			<a class="ui-state-default ui-corner-all" id="toggleInvert"><g:message code="reverse.label" 
+			locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/></a>
 			</div>
 		</div>
 	</fieldset>
