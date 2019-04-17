@@ -1,5 +1,6 @@
 package grails.utils
 
+import grails.utils.DaysOfWeek
 import grails.validation.Validateable
 
 
@@ -32,28 +33,36 @@ class DaysOfWeekBean implements Validateable {
 
 	//div container override per call
 	String context='default'
-	
+
 	//This defines the checkbox element collected
 	String fieldName='daysOfweek'
-	
+
+	//Show default label provided in gsp i.e. weekDays.label
 	boolean showLabel=false
-	
+
+	//Show locale next to above provided label - only works if above is enabled
 	boolean showLocale=false
-	
+
 	//if set to true will auto select all days of the week
 	boolean activateAll=false
-	
+
+	//Only 1 element on a gsp can have this as true, follow sample controller return call
 	boolean bindToBean=false
+
+	//Set this to false, if you wish for actual locale of user's view to override the messages
+	//displayed on days of week. i.e. if you set locale="${new Locale("ar","IQ")}"  and do not set this to false
+	//then the messages of the taglib call will also be in that locale
+	boolean overrideMessageLocale=true
 		
 	def formatBean() {
 		if (activateAll && !dow && !selectedDays ) {
-			dow=DaysOfWeek.allWeek()
+			dow= DaysOfWeek.allWeek()
 		}
 		if (!dow && selectedDays) {
 			dow=DaysOfWeek.fromListToBit(selectedDays)
 		}
 		if (dow) {
-			daysOfWeekList=DaysOfWeek.fromBitValueToList(dow as int, locale)
+			daysOfWeekList= DaysOfWeek.fromBitValueToList(dow as int, locale)
 		}
 	}
 

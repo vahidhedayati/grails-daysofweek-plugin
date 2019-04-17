@@ -220,30 +220,3 @@ You will notice `<dow:bootstrap/>` this is because in this grails 2 app there is
 
 You will notice `<dow:jqueryui/>` triggered once per page, by default grails 2.4 app does not have jquery-ui. No need to declare If you already load this up. You will also notice on each call `jqueryui="${true}"` this tells it to load the template that uses jquery-ui method.
 
-
-#### Breakdown of things you need to be aware of:
-
-```
-dow="${myDow}"       = The byte value if already provided from db or something
-dow="${64 as Byte}"  = you setting byte value manually this then populates relevant days.
-context="section2"   = Not needed if called only once on page, this is so that js stuff works per call 
- 
-showLocale="${true}" = To show the locale in showLabel only works if showLabel is on
-
-showLabel="${true}"  = Show week days label and if showLocale true also shows locale
-
-fieldName="myDow"    = This is the variable name of your checkbox by default daysOfWeek 
-
-locale="${new Locale("ar","IQ")}"  = Override system locale to show which ever order of days of week
-Please note this only overrides the ordering sequence of days and not actual screen text which is done via 
-?lang=th lang parameter on url line.
-
-
- template="/some/path/to/gsp/template/_override_plugin.gsp"
- This is to override the template to your own custom template if you so wish not to use plugin method of display days etc.
- 
- bindToBean="${true}"  = This by default is false if set to true one one <dow:week on a given page can auto bind to backend bean as per controllers above.
- 
- activateAll="${true}" =this is by defaut false, if there is currently no value provided and there are no active selected days, it attempts to pre-select all days for form loading up. You may wish for it to show everything as active as page starts up
-
-```    
