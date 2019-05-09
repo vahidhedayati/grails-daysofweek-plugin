@@ -8,7 +8,7 @@
 <div id="${instance.context}">
 	<g:if test="${instance?.showLabel}">
 		<label for="daysOfWeek" class="fieldLabel">
-			<g:message code="weekDays.label"  locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/>
+			<g:message code="weekDays.label"  locale="${currentLocale}"/>
 			<g:if test="${instance?.showLocale}">
 				${currentLocale}
 			</g:if>
@@ -35,18 +35,18 @@
 		                   	checked="${instance.daysOfWeekList?.contains(day.toString())}"
 		                   />
 	                   </g:else>
-	       			<g:message code="dow.${day}" locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/>
+						${day.longName}
 	   			</label>
 			</g:each>
 		</div>
 		<span class="btn btn-outline" id="toggleAll">
-			<g:message code="all.label" locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/>
+			<g:message code="all.label" locale="${currentLocale}"/>
 		</span>
 		<span class="btn btn-outline" id="toggleNone">
-			<g:message code="none.label" locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/>
+			<g:message code="none.label" locale="${currentLocale}"/>
 		</span>
 		<span class="btn btn-outline" id="toggleInvert">
-			<g:message code="reverse.label" locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/>
+			<g:message code="reverse.label" locale="${currentLocale}"/>
 		</span>
 	</div>
 </div>

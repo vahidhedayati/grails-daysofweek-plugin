@@ -66,10 +66,7 @@ fieldName="myDow"    = This is the variable name of your checkbox by default day
 locale="${new Locale("ar","IQ")}"  = Override system locale to show which ever order of days of week
 					Please note this only overrides the ordering sequence of days and not actual screen
 					 text which is done via  ?lang=th lang parameter on url line.
-
-overrideMessageLocale="${false}"  = By default true and if you provide locale then 
-									messages of the end gsp will be also in that locale 
-
+					 
  template="/some/path/to/gsp/template/_override_plugin.gsp"   =This is to override the template to your
  						 own custom template if you so wish not to use plugin method of display days etc.
  
