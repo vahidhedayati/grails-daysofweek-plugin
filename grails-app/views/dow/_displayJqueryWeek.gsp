@@ -13,7 +13,7 @@
 	<fieldset>
 		<g:if test="${instance?.showLabel}">
 			<label for="dow" class="fieldLabel">
-				<g:message code="weekDays.label" locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/>
+				<g:message code="weekDays.label" locale="${currentLocale}"/>
 				<g:if test="${instance?.showLocale}">
 					${currentLocale}
 				</g:if>
@@ -44,17 +44,17 @@
 			                   	checked="${instance.daysOfWeekList?.contains(day.toString())}"
 			                   />
 		                   </g:else>
-		       			<g:message code="dow.${day}" locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/>
+		       				${day.longName}
 		   			</label>
 				</g:each>
 			</div>
 			<div class="sideButtons">
 			<a class="ui-state-default ui-corner-all" id="toggleAll"><g:message code="all.label" 
-			locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/></a>
+			locale="${currentLocale}"/></a>
 			<a class="ui-state-default ui-corner-all" id="toggleNone"><g:message code="none.label" 
-			locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/></a>
+			locale="${currentLocale}"/></a>
 			<a class="ui-state-default ui-corner-all" id="toggleInvert"><g:message code="reverse.label" 
-			locale="${instance.overrideMessageLocale?currentLocale:defaultLocale}"/></a>
+			locale="${currentLocale}"/></a>
 			</div>
 		</div>
 	</fieldset>
@@ -66,8 +66,8 @@
 	  $(':radio', this).wrap('<div style="margin: 1px"/>');
 	  $(':checkbox', this).wrap('<div style="margin: 1px"/>');
 	  $(this).buttonset();
-	  $('label:first', this).removeClass('ui-corner-left').addClass('ui-corner-top');
-	  $('label:last', this).removeClass('ui-corner-right').addClass('ui-corner-bottom');
+	  //$('label:first', this).removeClass('ui-corner-left').addClass('ui-corner-top');
+	  //$('label:last', this).removeClass('ui-corner-right').addClass('ui-corner-bottom');
 	};
 	})( jQuery );
     $(function() {
@@ -79,7 +79,7 @@
             	$(this).removeClass('active').addClass('active').removeClass('weekend');
             } else {
             	$(this).removeClass('active');
-            	if($(this).data('weekend')) {
+            	if($(this).find(':checkbox').data('weekend')) {
             		$(this).addClass('weekend');
                 }
             }

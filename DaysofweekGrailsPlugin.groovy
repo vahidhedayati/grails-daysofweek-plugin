@@ -1,7 +1,7 @@
-class DaysofweekPluginGrailsPlugin {
+class DaysofweekGrailsPlugin {
     def version = "0.1"
     def grailsVersion = "2.0 > *"
-    def title = "Grails Daysofweek Plugin Plugin" // Headline display name of the plugin
+    def title = "Grails Daysofweek Plugin" // Headline display name of the plugin
     def author = "Vahid Hedayati"
     def authorEmail = "badvad@gmail.com"
     def description = '''\
