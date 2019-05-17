@@ -211,6 +211,7 @@ public enum DaysOfWeek {
 		Calendar c = Calendar.getInstance(ulocale)
 		DateFormatSymbols dfs = new DateFormatSymbols(ulocale)
 		String[] weekDays = dfs.getWeekdays()
+		String[] shortWeekDays = dfs.getShortWeekdays()
 		int weekendStart = c.getWeekData().weekendOnset
 		int weekendEnd = c.getWeekData().weekendCease
 		weekDays?.eachWithIndex { weekday, i->
@@ -218,7 +219,7 @@ public enum DaysOfWeek {
 				DaysOfWeek d  = DaysOfWeek.byDow(i)
 				d.setIsWeekend(false)
 				d.setLongName(weekday)
-				d.setShortName(weekday)
+				d.setShortName(shortWeekDays[i])
 				if (d.dow==weekendStart||d.dow==weekendEnd) {
 					d.setIsWeekend(true)
 				}
