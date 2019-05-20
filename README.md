@@ -14,7 +14,7 @@ Dependency Grails 2:
 Dependency Grails 3 (build.gradle):
 
 ```groovy
-	compile "org.grails.plugins:daysofweek:0.2"
+	compile "org.grails.plugins:daysofweek:0.3"
 ```
 [Grails 3 source](https://github.com/vahidhedayati/grails-daysofweek-plugin)
 	

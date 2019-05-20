@@ -13,7 +13,8 @@ import org.codehaus.groovy.grails.web.binding.DataBindingUtils
  *  
  *  <dow:week locale="${new Locale("ENGLISH", "US")}" />
  *  <dow:week locale="${new Locale("", countryCode)}" />
- *  <dow:week locale="${Locale.EN}" />
+ *  <dow:week lang='pt' />
+ *  <dow:week lang='en' />
  *  
  *  <dow:week template="/some/path/to/gsp/template/_override_plugin.gsp" />
  *  

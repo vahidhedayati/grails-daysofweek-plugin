@@ -89,10 +89,16 @@ These are now each wired in to either call up as per first 2 the bootstrap way o
 	   <dow:week activateAll="${false}" bindToBean="${true}"  
 	  	 showLabel="${true}" showLabel="${true}" showLocale="${true}"/>
 	   
-	   <!-- Testing dow as 64 and locale as Iraq -->
-	   <dow:week dow="${64 as Byte}" context="section2" 
-			showLabel="${true}" fieldName="myDow"  showLocale="${true}" locale="${new Locale("ar","IQ")}" />
-	   
+		   
+	   <!-- this is going from days of week in Persian starting from Sat/sun/Mon ending on Friday to submitted:
+	   receiving page getting it in English UK - starting from Mon/tue/wed ending on Sunday 
+	   Byte values changes or is different per locale due to manipulation of week days
+	   --> 
+   <dow:week dow="${8 as Byte}" context="section2" 
+			showLabel="${true}" fieldName="dow1"  showLocale="${true}" lang='fa' />
+			
+			
+			
 	   <!-- Testing FA_IR -->
 	   <dow:week dow="${100 as Byte}" fieldName="myDow2" 
 	   		showLabel="${true}" locale="${new Locale("fa","IR")}" showLocale="${true}" context="section3" />
@@ -127,6 +133,15 @@ These are now each wired in to either call up as per first 2 the bootstrap way o
 	  
    <dow:week   dow="${bean.dow}" bindToBean="${true}" showLocale="${true}"  showLabel="${true}" />
 
+	   
+	 <!-- this is going from days of week in Persian starting from Sat/sun/Mon ending on Friday to submitted:
+    	   receiving page getting it in English UK - starting from Mon/tue/wed ending on Sunday 
+    	   Byte values changes or is different per locale due to manipulation of week days
+    	   --> 
+   <dow:week  context="section2" 
+			dow="${dow1}" showLabel="${true}" fieldName="dow1"  showLocale="${true}"  lang='en' />
+	   
+	   
    <!-- Testing dow as 64 and locale as Iraq -->
    <dow:week dow="${myDow}" context="section2"  
    showLabel="${true}" fieldName="myDow" locale="${new Locale("ar","IQ")}" showLocale="${true}" />

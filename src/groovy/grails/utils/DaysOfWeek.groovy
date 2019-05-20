@@ -1,6 +1,7 @@
 package  grails.utils
 
 import com.ibm.icu.text.DateFormatSymbols
+import com.ibm.icu.text.SimpleDateFormat
 import com.ibm.icu.util.Calendar
 import com.ibm.icu.util.ULocale
 
@@ -24,12 +25,12 @@ public enum DaysOfWeek {
 	// CODE(bitwise code in byte, actual dow integer , *shortName, *longName, *weekend day? true/false),
 	// *= overridden according to locale
     SUN((byte)1,1, 'Sun', 'Sunday', true),
-    MON((byte)2,2, 'Mon', 'Monday', false),
-    TUE((byte)4,3, 'Tue', 'Tuesday',false),
-    WED((byte)8,4, 'Wed', 'Wednesday',false),
-    THU((byte)16,5,'Thu', 'Thursday',false),
+    MON((byte)2,2, 'Mon', 'Monday',false),
+    TUE((byte)4,3, 'Tue', 'Tuesday', false),
+    WED((byte)8,4, 'Wed', 'Wednesday', false),
+    THU((byte)16,5,'Thu', 'Thursday', false),
     FRI((byte)32,6,'Fri', 'Friday',false),
-    SAT((byte)64,7,'Sat', 'Saturday',true)
+    SAT((byte)64,7,'Sat', 'Saturday', true)
 
 	/*
 	 *  http://stackoverflow.com/questions/313417/whats-the-best-way-to-store-the-days-of-the-week-an-event-takes-place-on-in-a-r
@@ -50,10 +51,14 @@ public enum DaysOfWeek {
 	
 	//set by formatting of week days
 	String longName
+
 	
 	//set by formatting of week days
 	boolean isWeekend
 
+	public static ULocale convertToULocale(Locale local) {
+		return new ULocale(local.language,local.country,local.variant)
+	}
 	
     DaysOfWeek(byte val, int dow, String shortName,String longName, boolean isWeekend) {
         this.value = val
@@ -74,7 +79,8 @@ public enum DaysOfWeek {
 	}
 	public String getShortName(){
 		return shortName
-	}	
+	}
+	
 	public String getLongName(){
 		return longName
 	}
@@ -132,7 +138,7 @@ public enum DaysOfWeek {
 	 */
 	public static class DayComparator implements Comparator<DaysOfWeek> {
 		Locale locale = Locale.UK
-		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
+		Calendar c = (Calendar)Calendar.getInstance(DaysOfWeek.convertToULocale(locale))
 		
 		int weekendStart = c.getWeekData().weekendOnset
 		int weekendEnd = c.getWeekData().weekendCease
@@ -196,6 +202,8 @@ public enum DaysOfWeek {
         return sum
     }
 
+
+	
 	/**
 	 * Dynamically  set data of the enum on call 
 	 * 
@@ -205,8 +213,9 @@ public enum DaysOfWeek {
 	 * @param locale
 	 */
 	public static void initialiseEnumByLocale(Locale locale) {
-		initialiseEnumByLocale(new ULocale(locale.language,locale.country,locale.variant))
+		initialiseEnumByLocale(convertToULocale(locale))
 	}
+	
 	public static void initialiseEnumByLocale(ULocale ulocale) {
 		Calendar c = Calendar.getInstance(ulocale)
 		DateFormatSymbols dfs = new DateFormatSymbols(ulocale)
@@ -226,28 +235,8 @@ public enum DaysOfWeek {
 			}
 			
 		}
-		
-		/*
-		//1st April 2018 starts on Sunday same as our enum starting point
-		java.text.DateFormat format = new  java.text.SimpleDateFormat("dd/MM/yyyy")
-		Date date = format.parse("1/4/2018")
-		String shortDayFormat='EEE'
-		String longDayFormat='EEEE'
-		SimpleDateFormat sdf = new SimpleDateFormat(shortDayFormat, ulocale)
-		SimpleDateFormat ldf = new SimpleDateFormat(longDayFormat, ulocale)
-		//int weekendStart = c.getWeekData().weekendOnset
-		//int weekendEnd = c.getWeekData().weekendCease
-		DaysOfWeek.values().each{DaysOfWeek val ->
-			val.setIsWeekend(false)
-			if (val.dow==weekendStart||val.dow==weekendEnd) {
-				val.setIsWeekend(true)
-			}
-			val.setShortName(sdf.format(date))
-			val.setLongName(ldf.format(date))
-			date++
-		}
-		*/
 	}
+
 	/**
 	 * List<String> myDays = DaysOfWeek.daysOfWeek(Locale.UK)
 	 * 
@@ -263,7 +252,7 @@ public enum DaysOfWeek {
 		return this.orderedDaysOfWeek(locale)
     }
 
-    public static List<String> fromBitValueToList (final int origBitMask, Locale locale = Locale.UK) {
+    public static List<String> fromBitValueToList (int origBitMask, Locale locale = Locale.UK) {
         final List<String> ret_val = []
         int bitMask = origBitMask
         for ( final DaysOfWeek val : this.orderedDaysOfWeek(locale) ) {
@@ -304,7 +293,7 @@ public enum DaysOfWeek {
 	 * @return  a list of java.util.Locale calendars that can be used with this class  
 	 */
 	public static List<java.util.Locale> getAvailableLocales(Locale locale=Locale.UK) {
-		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
+		Calendar c = (Calendar)Calendar.getInstance(convertToULocale(locale))
 		return c.getAvailableLocales()
 	}
 	
@@ -316,7 +305,7 @@ public enum DaysOfWeek {
 	 * @return DaysofWeek ENUM object equalling first week day of given java locale
 	 */
 	public static DaysOfWeek getFirstDayOfWeek(Locale locale=Locale.UK) {
-		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
+		Calendar c = (Calendar)Calendar.getInstance(convertToULocale(locale))
 		return DaysOfWeek.byDow(c.getFirstDayOfWeek())
 	}
 	
@@ -328,7 +317,7 @@ public enum DaysOfWeek {
 	 * @return integer of which week day is starting day of weekend for that locale - questionable at moment for me
 	 */
 	public static int getWeekEndStart(Locale locale=Locale.UK) {
-		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
+		Calendar c = (Calendar)Calendar.getInstance(convertToULocale(locale))
 		// return c.getWeekDataForRegion(locale.country).weekendOnset
 		return c.getWeekData().weekendOnset
 	}
@@ -341,7 +330,7 @@ public enum DaysOfWeek {
 	 * @return integer of which week day is ending day  of weekend for that locale - questionable at moment for me
 	 */
 	public static int getWeekEndEnd(Locale locale=Locale.UK) {
-		Calendar c = (Calendar)Calendar.getInstance((ULocale)new ULocale(locale.language,locale.country,locale.variant))
+		Calendar c = (Calendar)Calendar.getInstance(convertToULocale(locale))
 		// return c.getWeekDataForRegion(locale.country).weekendCease
 		return c.getWeekData().weekendCease
 	}
