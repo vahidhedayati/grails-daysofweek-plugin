@@ -1,6 +1,12 @@
 daysofweek
 =========
 
+### Side note - similar / related projects
+- [grails-daysofweek-plugin (this)](https://github.com/vahidhedayati/grails-daysofweek-plugin)
+
+- [grails-icucalendar-plugin](https://github.com/vahidhedayati/grails-icucalendar-plugin)
+
+
 Grails Days Of week plugin using ICU4J libraries to work out internationl calendar week days 
 
 Dependency Grails 2:
