@@ -1,20 +1,18 @@
-package grails.utils
+package grails.daysofweek.utils
 
 import grails.validation.Validateable
-import groovy.grails.utils.DaysOfWeek
-
 
 /**
- * 
+ *
  * Validation bean to work with the displayWeek template
- * 
+ *
  * If you wish to reuse this functionality simply extend this in your own validation
- * 
- *  
+ *
+ *
  * class MyValidation extends  DaysOfWeekBean {
  *   //do other stuff and you get all of this too
  * }
- * 
+ *
  * @author Vahid Hedayati
  *
  */

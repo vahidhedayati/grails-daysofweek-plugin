@@ -1,22 +1,21 @@
-package groovy.grails.utils
+package grails.daysofweek.utils
 
 import com.ibm.icu.text.DateFormatSymbols
-import com.ibm.icu.text.SimpleDateFormat
 import com.ibm.icu.util.Calendar
 import com.ibm.icu.util.ULocale
 
 /**
- *  DaysOfWeek is an ENUM which declares 
+ *  DaysOfWeek is an ENUM which declares
  *  physical week days i.e. SUN MON,
  *  The ENUM values contains :
  *  a bitwise operation known locally as variable value  -- is fixed
- *  the week day representation known locally as dow   -- is fixed 
+ *  the week day representation known locally as dow   -- is fixed
  *  a boolean true/false  known locally as isWeekend  --  is modifiable.
  *   -> configures a default week or weekend day is overridden in DayComparator
- *   
+ *
  *  This class takes java locale and converts to com.ibm.icu.util.ULocale
  *  and returns a final result
- * 
+ *
  * @author Vahid Hedayati April 2019
  *
  */
@@ -59,7 +58,7 @@ public enum DaysOfWeek {
 		return new ULocale(local.language,local.country,local.variant)
 	}
 
-	DaysOfWeek(byte val, int dow, String shortName,String longName, boolean isWeekend) {
+    DaysOfWeek(byte val, int dow, String shortName, String longName, boolean isWeekend) {
 		this.value = val
 		this.dow = dow
 		this.shortName=shortName
@@ -284,10 +283,10 @@ public enum DaysOfWeek {
 
 	/**
 	 * DaysOfWeek.getAvailableLocales(java.util.Locale)
-	 * or 
+	 * or
 	 * DaysOfWeek.availableLocales
 	 * @param locale optional
-	 * @return  a list of java.util.Locale calendars that can be used with this class  
+	 * @return  a list of java.util.Locale calendars that can be used with this class
 	 */
 	public static List<java.util.Locale> getAvailableLocales(Locale locale=Locale.UK) {
 		Calendar c = (Calendar)Calendar.getInstance(convertToULocale(locale))
@@ -296,7 +295,7 @@ public enum DaysOfWeek {
 
 	/**
 	 * DaysOfWeek.getFirstDayOfWeek(java.util.Locale)
-	 * or 
+	 * or
 	 * DaysOfWeek.firstDayOfWeek  //UK Bound
 	 * @param locale optional
 	 * @return DaysofWeek ENUM object equalling first week day of given java locale
@@ -352,7 +351,7 @@ public enum DaysOfWeek {
 	}
 
 	/**
-	 * Basic minimal comparator comparing lowest to highest and returning a list of 
+	 * Basic minimal comparator comparing lowest to highest and returning a list of
 	 * DaysOfWeek array above based on dow setting within ENUM
 	 * @author Vahid Hedayati
 	 *

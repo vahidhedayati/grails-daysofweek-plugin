@@ -3,7 +3,7 @@ package grails.daysofweek.plugin
 import grails.plugins.Plugin
 
 class DaysofweekGrailsPlugin extends Plugin {
-    def version = "1.0"
+    def version = "0.3"
     def grailsVersion = "2.4 > *"
     def title = "Days Of Week plugin"
     def description = """Grails plugin using ICU4J libraries to calculate international week day

@@ -1,7 +1,7 @@
 <style>
 #${instance.context} .weekDayContainer  .active { background-color : #5ADA5A; }
 #${instance.context} .sideButtons { display:inline;}
-#${instance.context} .hidden { display:none;} 
+#${instance.context} .hidden { display:none;}
 #${instance.context} #weekdaysElements { display:inline;}
 #${instance.context} .weekDayContainer .weekend { background-color : #f0ad4e; }
 </style>
@@ -12,7 +12,7 @@
 <div id="${instance.context}">
 	<fieldset>
 		<g:if test="${instance?.showLabel}">
-			<label for="daysOfWeek" class="fieldLabel">
+			<label class="fieldLabel">
 				<g:message code="weekDays.label" locale="${currentLocale}" />
 				<g:if test="${instance?.showLocale}">
 					${currentLocale}
@@ -20,27 +20,27 @@
 			</label>
 		</g:if>
 		<div class="weekDayContainer" >
-			<div id="weekdaysElements"> 
-				<g:each var="day" status="i" in="${grails.utils.DaysOfWeek.daysByLocale(currentLocale)}">
+			<div id="weekdaysElements">
+				<g:each var="day" status="i" in="${grails.daysofweek.utils.DaysOfWeek.daysByLocale(currentLocale)}">
 				<g:set var="containsItem" value="${instance.daysOfWeekList?.contains(day.toString())}"/>
-		   			<label class="daysOfWeek ${!containsItem && day.isWeekend?'weekend':''} 
+		   			<label class="daysOfWeek ${!containsItem && day.isWeekend?'weekend':''}
 		   					${containsItem ? 'active' : ''}">
 		   					<g:if test="${instance?.bindToBean}">
-				       			<g:checkBox 
+				       			<g:checkBox
 				       				data-text="${g.message(code:'dow.'+day)?:''}"
 				       				data-weekend="${day.isWeekend}"
 				       				class="hidden"
-				                   	name="${instance?.fieldName?:'daysOfWeek'}[${i}]"  
-				                   	value="${day}"  
+				                   	name="${instance?.fieldName?:'daysOfWeek'}[${i}]"
+				                   	value="${day}"
 				                   	checked="${instance.daysOfWeekList?.contains(day.toString())}"
 				                   />
 		                   </g:if>
 		                   <g:else>
-			                   <g:checkBox 
+			                   <g:checkBox
 			       				data-text="${g.message(code:'dow.'+day)?:''}" class="hidden"
 			       				data-weekend="${day.isWeekend}"
-			                   	name="${instance?.fieldName?:'daysOfWeek'}"  
-			                   	value="${day}"  
+			                   	name="${instance?.fieldName?:'daysOfWeek'}"
+			                   	value="${day}"
 			                   	checked="${instance.daysOfWeekList?.contains(day.toString())}"
 			                   />
 		                   </g:else>

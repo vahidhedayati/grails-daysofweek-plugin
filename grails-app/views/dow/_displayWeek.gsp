@@ -7,7 +7,7 @@
 				java.util.Locale.UK}"/>
 <div id="${instance.context}">
 	<g:if test="${instance?.showLabel}">
-		<label for="daysOfWeek" class="fieldLabel">
+		<label   class="fieldLabel">
 			<g:message code="weekDays.label"  locale="${currentLocale}"/>
 			<g:if test="${instance?.showLocale}">
 				${currentLocale}
@@ -16,22 +16,22 @@
 	</g:if>
 	<div class="weekDayContainer">
 		<div class="btn-group btn-xs" id="weekdaysElements" data-toggle="buttons-checkbox">
-			<g:each var="day" status="i" in="${grails.utils.DaysOfWeek.daysByLocale(currentLocale)}">
-	   			<label class="daysOfWeek btn btn-xs btn-${day.isWeekend?'warning':'default'} 
+			<g:each var="day" status="i" in="${grails.daysofweek.utils.DaysOfWeek.daysByLocale(currentLocale)}">
+	   			<label class="daysOfWeek btn btn-xs btn-${day.isWeekend?'warning':'default'}
 	   					${instance.daysOfWeekList?.contains(day.toString()) ? 'active' : ''}">
 	   					<g:if test="${instance?.bindToBean}">
-			       			<g:checkBox 
+			       			<g:checkBox
 			       				data-text="${g.message(code:'dow.'+day)?:''}" class="hidden"
-			                   	name="${instance?.fieldName?:'daysOfWeek'}[${i}]"  
-			                   	value="${day}"  
+			                   	name="${instance?.fieldName?:'daysOfWeek'}[${i}]"
+			                   	value="${day}"
 			                   	checked="${instance.daysOfWeekList?.contains(day.toString())}"
 			                   />
 	                   </g:if>
 	                   <g:else>
-		                   <g:checkBox 
+		                   <g:checkBox
 		       				data-text="${g.message(code:'dow.'+day)?:''}" class="hidden"
-		                   	name="${instance?.fieldName?:'daysOfWeek'}"  
-		                   	value="${day}"  
+		                   	name="${instance?.fieldName?:'daysOfWeek'}"
+		                   	value="${day}"
 		                   	checked="${instance.daysOfWeekList?.contains(day.toString())}"
 		                   />
 	                   </g:else>
