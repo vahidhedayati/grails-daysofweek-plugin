@@ -11,7 +11,7 @@ buildscript {
 
 
 version "0.3"
-group "org.grails.plugins"
+group "io.github.vahidhedayati"
 
 apply plugin:"eclipse"
 apply plugin:"idea"
